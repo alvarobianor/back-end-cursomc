@@ -3,25 +3,28 @@ package com.alvaro.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alvaro.domain.Categoria;
+import com.alvaro.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriasResources {
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Categoria> listar() {
-		Categoria categoria = new Categoria(1, "Sexshop");
-		Categoria categoria2 = new Categoria(2, "Brinquedos");
+	@Autowired
+	private CategoriaService service;
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> buscar(@PathVariable Integer id) {
 		
-		List<Categoria> lista = new ArrayList<>();
-		lista.add(categoria);
-		lista.add(categoria2);
+		Categoria obj = service.buscar(id);
 		
-		return lista;
+		return ResponseEntity.ok().body(obj);
 	}
 }
