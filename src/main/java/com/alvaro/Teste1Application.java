@@ -10,8 +10,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.alvaro.DAO.CategoriaDAO;
+import com.alvaro.DAO.CidadeDAO;
+import com.alvaro.DAO.EstadoDAO;
 import com.alvaro.DAO.ProdutoDAO;
 import com.alvaro.domain.Categoria;
+import com.alvaro.domain.Cidades;
+import com.alvaro.domain.Estado;
 import com.alvaro.domain.Produto;
 
 @SpringBootApplication
@@ -22,6 +26,12 @@ public class Teste1Application implements CommandLineRunner{
 	
 	@Autowired
 	private ProdutoDAO produtoDAO;
+	
+	@Autowired
+	private CidadeDAO cidadeDAO;
+	
+	@Autowired
+	private EstadoDAO estadoDAO;
 	
 	public static void main(String[] args){
 		SpringApplication.run(Teste1Application.class, args);
@@ -45,11 +55,21 @@ public class Teste1Application implements CommandLineRunner{
 
 		p1.getCategoria().addAll(Arrays.asList(cat1));
 		p2.getCategoria().addAll(Arrays.asList(cat1, cat2));
-		p3.getCategoria().addAll(Arrays.asList(cat1));
+		p3.getCategoria().addAll(Arrays.asList(cat2));
 
 		
 		categoriaDAO.saveAll(Arrays.asList(cat1, cat2));
 		produtoDAO.saveAll(Arrays.asList(p1, p2, p3));
+		
+		Estado est1 = new Estado(null,"Ceará");
+		Estado est2 = new Estado(null, "Acre");
+		
+		Cidades cit1 = new Cidades(null, "Choró", est1);
+		Cidades cit2 = new Cidades(null, "Quixadá", est1);
+		Cidades cit3 = new Cidades(null, "Texas", est2);
+		
+		estadoDAO.saveAll(Arrays.asList(est1,est2));
+		cidadeDAO.saveAll(Arrays.asList(cit1, cit2, cit3));
 		
 	}
 
