@@ -8,15 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.repository.CrudRepository;
 
 import com.alvaro.DAO.CategoriaDAO;
 import com.alvaro.DAO.CidadeDAO;
+import com.alvaro.DAO.ClienteDAO;
+import com.alvaro.DAO.EnderecoDAO;
 import com.alvaro.DAO.EstadoDAO;
 import com.alvaro.DAO.ProdutoDAO;
 import com.alvaro.domain.Categoria;
 import com.alvaro.domain.Cidades;
+import com.alvaro.domain.Cliente;
+import com.alvaro.domain.Endereco;
 import com.alvaro.domain.Estado;
 import com.alvaro.domain.Produto;
+import com.alvaro.domain.enums.TipoCliente;
 
 @SpringBootApplication
 public class Teste1Application implements CommandLineRunner{
@@ -32,6 +38,12 @@ public class Teste1Application implements CommandLineRunner{
 	
 	@Autowired
 	private EstadoDAO estadoDAO;
+	
+	@Autowired
+	private ClienteDAO clienteDAO;
+	
+	@Autowired
+	private EnderecoDAO enderecoDAO;
 	
 	public static void main(String[] args){
 		SpringApplication.run(Teste1Application.class, args);
@@ -70,6 +82,19 @@ public class Teste1Application implements CommandLineRunner{
 		
 		estadoDAO.saveAll(Arrays.asList(est1,est2));
 		cidadeDAO.saveAll(Arrays.asList(cit1, cit2, cit3));
+		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.pessoafisica);
+
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, cit1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, cit3);
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
+		
+		clienteDAO.saveAll(Arrays.asList(cli1));
+		enderecoDAO.saveAll(Arrays.asList(e1, e2));
 		
 	}
 
