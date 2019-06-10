@@ -39,17 +39,14 @@ public class Teste1Application implements CommandLineRunner{
 		Produto p2 =  new Produto(null, "Conta Premium Xvideos", 60.00);
 		Produto p3 =  new Produto(null, "Roupa do Batman", 40.00);
 		
-		List<Produto> aux = new ArrayList<>();
-		List<Categoria> aux2 = new ArrayList<>();
-		aux.addAll(Arrays.asList(p1, p2, p3));
-		aux2.addAll(Arrays.asList(cat1, cat2));
 		
-		cat1.setProduto(aux);
-		cat2.setProduto(aux);
-		
-		p1.setCategoria(aux2);
-		p2.setCategoria(aux2);
-		p3.setCategoria(aux2);
+		cat1.getProduto().addAll(Arrays.asList(p1, p2, p3));
+		cat2.getProduto().addAll(Arrays.asList(p2));
+
+		p1.getCategoria().addAll(Arrays.asList(cat1));
+		p2.getCategoria().addAll(Arrays.asList(cat1, cat2));
+		p3.getCategoria().addAll(Arrays.asList(cat1));
+
 		
 		categoriaDAO.saveAll(Arrays.asList(cat1, cat2));
 		produtoDAO.saveAll(Arrays.asList(p1, p2, p3));

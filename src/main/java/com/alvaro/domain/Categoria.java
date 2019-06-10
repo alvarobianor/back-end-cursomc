@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -15,6 +18,7 @@ public class Categoria implements Serializable {
 	private Integer id;
 	private String nome;
 
+	@JsonManagedReference
 	@ManyToMany(mappedBy = "categoria")
 	private List<Produto> produto = new ArrayList<>();
 
