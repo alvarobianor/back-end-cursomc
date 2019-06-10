@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.alvaro.domain.enums.TipoCliente;
@@ -36,6 +38,10 @@ public class Cliente implements Serializable{
 	@ElementCollection
 	@CollectionTable(name = "TELEFONES")
 	private Set<String> telefones = new HashSet<>();
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Cliente() {}
 
@@ -104,6 +110,15 @@ public class Cliente implements Serializable{
 
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCod();
+	}
+
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override
