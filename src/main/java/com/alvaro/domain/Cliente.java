@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.alvaro.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cliente implements Serializable{
@@ -28,7 +29,7 @@ public class Cliente implements Serializable{
 	private String cpf_cnpj;
 	private Integer tipo;//pequena gamb pra armazenar o tipo cliete como inteiro, poderia ser feito de uma forma mais facil
 	
-	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
