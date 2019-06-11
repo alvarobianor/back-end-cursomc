@@ -31,13 +31,13 @@ public class Pedido implements Serializable {
 	@JsonFormat(pattern = "dd/MM/aaaa || HH:mm:SS")
 	private Date instante;
 
-	@JsonManagedReference
+	
 	@OneToOne
 	@JoinColumn(name = "pagamento_id")
 	@MapsId
 	private Pagamento pagamento;
 
-	@JsonManagedReference
+	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
