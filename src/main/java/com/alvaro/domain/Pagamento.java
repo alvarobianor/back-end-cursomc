@@ -12,6 +12,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
 import com.alvaro.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -24,6 +25,7 @@ public abstract class Pagamento implements Serializable{//herenca, a pai fica ab
 	private Integer id;
 	private Integer estado;
 	
+	@JsonBackReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pagamento")
 	private Pedido pedido;
 	
