@@ -15,7 +15,7 @@ import com.alvaro.domain.enums.EstadoPagamento;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public  abstract class Pagamento implements Serializable{
+public abstract class Pagamento implements Serializable{//herenca, a pai fica abstract
 
 	private static final long serialVersionUID = 1L;
 

@@ -16,6 +16,7 @@ import com.alvaro.DAO.CidadeDAO;
 import com.alvaro.DAO.ClienteDAO;
 import com.alvaro.DAO.EnderecoDAO;
 import com.alvaro.DAO.EstadoDAO;
+import com.alvaro.DAO.ItemPedidoDAO;
 import com.alvaro.DAO.PagamentoDAO;
 import com.alvaro.DAO.PedidoDAO;
 import com.alvaro.DAO.ProdutoDAO;
@@ -24,6 +25,7 @@ import com.alvaro.domain.Cidades;
 import com.alvaro.domain.Cliente;
 import com.alvaro.domain.Endereco;
 import com.alvaro.domain.Estado;
+import com.alvaro.domain.ItemPedido;
 import com.alvaro.domain.Pagamento;
 import com.alvaro.domain.PagamentoBoleto;
 import com.alvaro.domain.PagamentoCartao;
@@ -57,7 +59,10 @@ public class Teste1Application implements CommandLineRunner {
 	private PedidoDAO pedidoDAO;
 
 	@Autowired
-	private PagamentoDAO pagamentoDAO;;
+	private PagamentoDAO pagamentoDAO;
+	
+	@Autowired
+	private ItemPedidoDAO itemPedidoDAO;;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Teste1Application.class, args);
@@ -124,6 +129,19 @@ public class Teste1Application implements CommandLineRunner {
 
 		pedidoDAO.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoDAO.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+
+		itemPedidoDAO.saveAll(Arrays.asList(ip1, ip2, ip3));
 	}
 
 }
