@@ -1,5 +1,6 @@
 package com.alvaro.services;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,13 @@ public class CategoriaService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 
-	public Categoria insert(Categoria cat) {
+	public Categoria inserir(Categoria cat) {
 		cat.setId(null);
 		return Dao.save(cat);
+	}
+
+	public Categoria atualizar(Categoria obj) {
+		return Dao.save(obj);
 	}
 
 }
