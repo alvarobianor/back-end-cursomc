@@ -1,15 +1,13 @@
 package com.alvaro;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 
 import com.alvaro.DAO.CategoriaDAO;
 import com.alvaro.DAO.CidadeDAO;
@@ -60,7 +58,7 @@ public class Teste1Application implements CommandLineRunner {
 
 	@Autowired
 	private PagamentoDAO pagamentoDAO;
-	
+
 	@Autowired
 	private ItemPedidoDAO itemPedidoDAO;;
 
@@ -129,7 +127,7 @@ public class Teste1Application implements CommandLineRunner {
 
 		pedidoDAO.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoDAO.saveAll(Arrays.asList(pagto1, pagto2));
-		
+
 		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
 		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
 		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
