@@ -1,6 +1,9 @@
 package com.alvaro.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,13 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.alvaro.domain.Categoria;
+import com.alvaro.domain.DTO.CategoriaDTO;
 import com.alvaro.services.CategoriaService;
-import com.alvaro.domain.*;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -54,4 +56,29 @@ public class CategoriasResources {
 		service.deletar(id);
 	return ResponseEntity.noContent().build();
 	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> buscarTodos() {
+		
+		List<Categoria> aux = service.buscarTodos();
+		List<CategoriaDTO> obj = aux.stream().map((obj2) -> (new CategoriaDTO(obj2))).collect(Collectors.toList()); //gamb detected
+		
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	// só para nivel de curiosidade, sem usar dto
+	@RequestMapping(value = "Maps",method = RequestMethod.GET)
+	public ResponseEntity<?> buscarTodos2() {
+		
+		List<Categoria> objAux = service.buscarTodos();
+		
+		List<Categoria> obj = new ArrayList<>();
+		
+		for(Categoria x : objAux) {			
+			obj.add(new Categoria(x.getId(), x.getNome()));
+		}
+		
+		return ResponseEntity.ok().body(obj);
+	}
+	
 }

@@ -1,5 +1,6 @@
 package com.alvaro.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +40,14 @@ public class CategoriaService {
 	public void deletar(Integer id) {
 		try {
 			Dao.deleteById(id);
-			
 		} catch (DataIntegrityViolationException e) {
 			throw new DataException("qqqq");
 		}
+	}
+
+	public List<Categoria> buscarTodos() {
+		// TODO Auto-generated method stub
+		return Dao.findAll();
 	}
 
 }
