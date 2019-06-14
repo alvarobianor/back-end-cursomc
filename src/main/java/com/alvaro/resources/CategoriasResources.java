@@ -3,14 +3,17 @@ package com.alvaro.resources;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -33,6 +36,7 @@ public class CategoriasResources {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	//ADICIONAR 
 	//metodo verboso, horrivel
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> inserir(@RequestBody Categoria obj){
@@ -43,6 +47,7 @@ public class CategoriasResources {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	//ATUALIZAR
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> atualizar(@RequestBody Categoria obj, @PathVariable Integer id){
 		obj.setId(id);
@@ -50,13 +55,14 @@ public class CategoriasResources {
 		return ResponseEntity.noContent().build();
 	} 
 	
-
+	//DELETAR
 	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable Integer id){
 		service.deletar(id);
 	return ResponseEntity.noContent().build();
 	}
 	
+	//BUSCAR TODOS USANDO DTO
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> buscarTodos() {
 		
@@ -64,6 +70,20 @@ public class CategoriasResources {
 		List<CategoriaDTO> obj = aux.stream().map((obj2) -> (new CategoriaDTO(obj2))).collect(Collectors.toList()); //gamb detected
 		
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	//BUSCAR TODOS USANDO PAGINAÇÃO
+	@RequestMapping(value = "/pages",method = RequestMethod.GET)
+	public ResponseEntity<Page<CategoriaDTO>> buscarPage(
+			@RequestParam(name = "p", defaultValue = "0") Integer page, 
+			@RequestParam(name = "l", defaultValue = "24") Integer lines, 
+			@RequestParam(name = "o", defaultValue = "nome") String orderBy, 
+			@RequestParam(name = "d", defaultValue = "ASC") String direction){
+		
+		Page<Categoria> pageAll = service.buscarPage(page, lines, orderBy, direction);
+		Page<CategoriaDTO> list = pageAll.map(obj -> (new CategoriaDTO(obj)));
+		
+		return ResponseEntity.ok().body(list);
 	}
 	
 	// só para nivel de curiosidade, sem usar dto

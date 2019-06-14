@@ -74,6 +74,24 @@ public class Teste1Application implements CommandLineRunner {
 
 		Categoria cat1 = new Categoria(null, "Sexshop");
 		Categoria cat2 = new Categoria(null, "Fantasias");
+		Categoria cat3 = new Categoria(null, "Carross");
+		Categoria cat4 = new Categoria(null, "Motos");
+		Categoria cat5 = new Categoria(null, "Casa");
+		Categoria cat6 = new Categoria(null, "Motor Home");
+		Categoria cat7 = new Categoria(null, "Lixo");
+		Categoria cat8 = new Categoria(null, "Lol");
+		Categoria cat9 = new Categoria(null, "zTey is back mens");
+		Categoria cat10 = new Categoria(null, "Krtz tbm is back");
+		Categoria cat11 = new Categoria(null, "Kami");
+		Categoria cat12 = new Categoria(null, "brTT");
+		Categoria cat13 = new Categoria(null, "Manajj");
+		Categoria cat14 = new Categoria(null, "AMAZIM");
+		Categoria cat15 = new Categoria(null, "Yodon");
+		Categoria cat16 = new Categoria(null, "Jukes");
+		Categoria cat17 = new Categoria(null, "Pimp");
+		Categoria cat18 = new Categoria(null, "Jovi");
+		Categoria cat19 = new Categoria(null, "aXteta");
+		
 
 		Produto p1 = new Produto(null, "vibrador", 40.00);
 		Produto p2 = new Produto(null, "Conta Premium Xvideos", 60.00);
@@ -86,7 +104,8 @@ public class Teste1Application implements CommandLineRunner {
 		p2.getCategoria().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategoria().addAll(Arrays.asList(cat2));
 
-		categoriaDAO.saveAll(Arrays.asList(cat1, cat2));
+		categoriaDAO.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, 
+				cat8, cat9, cat10, cat11, cat12, cat13, cat14, cat15, cat16, cat17));
 		produtoDAO.saveAll(Arrays.asList(p1, p2, p3));
 
 		Estado est1 = new Estado(null, "Ceará");
